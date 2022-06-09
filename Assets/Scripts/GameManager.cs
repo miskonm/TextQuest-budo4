@@ -1,8 +1,9 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour
+public class GameManager : SingletonMonoBehaviour<GameManager>
 {
     #region Variables
 
@@ -13,14 +14,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Button _menuButton;
 
     [Header("Initial Setup")]
-    [SerializeField] private Step _startStep;
+    [SerializeField] private StepSO _startStep;
 
     [Header("External Components")]
     [SerializeField] private SceneLoader _sceneLoader;
     [SerializeField] private string _menuSceneName;
     [SerializeField] private string _gameOverSceneName;
 
-    private Step _currentStep;
+    private StepSO _currentStep;
 
     #endregion
 
@@ -31,6 +32,16 @@ public class GameManager : MonoBehaviour
     {
         _menuButton.onClick.AddListener(MenuButtonClicked);
         SetCurrentStep(_startStep);
+    }
+
+    public void Test()
+    {
+        MenuScreen.Instance.Test();
+    }
+
+    private void FirstButtonClicked()
+    {
+        SetCurrentStep(0);
     }
 
     private void Update()
@@ -73,11 +84,11 @@ public class GameManager : MonoBehaviour
         if (_currentStep.Choices.Length <= choiceIndex)
             return;
 
-        Step nextStep = _currentStep.Choices[choiceIndex];
+        StepSO nextStep = _currentStep.Choices[choiceIndex];
         SetCurrentStep(nextStep);
     }
 
-    private void SetCurrentStep(Step step)
+    private void SetCurrentStep(StepSO step)
     {
         if (step == null)
             return;

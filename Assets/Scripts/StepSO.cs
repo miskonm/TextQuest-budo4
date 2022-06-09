@@ -1,10 +1,8 @@
-using System;
 using UnityEngine;
 
-public class Step : MonoBehaviour
+[CreateAssetMenu(fileName = "Olololo", menuName = "Configs/Step")]
+public class StepSO : ScriptableObject
 {
-    #region Variables
-
     public string DebugHeaderText;
     
     [TextArea(4, 8)] 
@@ -13,7 +11,5 @@ public class Step : MonoBehaviour
     [TextArea(4, 6)] 
     public string ChoicesText;
 
-    public Step[] Choices;
-
-    #endregion
+    public StepSO[] Choices;
 }
